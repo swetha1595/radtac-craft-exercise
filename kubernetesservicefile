@@ -1,0 +1,21 @@
+service file
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: javawebapp3
+spec:
+  selector:
+     app: javawebapp
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 30055
+	
+
+
+
+
+	
+	

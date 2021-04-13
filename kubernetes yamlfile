@@ -1,0 +1,14 @@
+pod yaml file
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: javawebapppod
+  labels:
+     app: javawebapp
+spec:
+  containers:
+  - name: javawebappcontainer
+    image: swetha1595/webapplication2:v1
+    ports:
+    - containerPort: 8080

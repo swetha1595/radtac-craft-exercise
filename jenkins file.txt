@@ -1,0 +1,29 @@
+node{
+     def buildNumber = BUILD_NUMBER
+     stage("Git clone"){
+        git url: 'https://github.com/MithunTechnologiesDevOps/java-web-app-docker.git', branch: 'master '
+    }
+    stage("Maven clean package"){
+        def mavenHome= tool name: "maven", type: "maven"
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    stage("Build Docker Image"){
+		sh "docker build -t swetha1595/java-web-app:${buildNumber} ."
+    }
+     stage('Push Docker Image'){
+         withCredentials([string(credentialsId: 'dockerhub3', variable: 'dockerhub3')]) {
+         sh "docker login -u swetha1595 -p ${dockerhub3}"
+        sh 'docker push swetha1595/java-web-app:${buildNumber}'
+     }
+     stage(deploy as a container){
+          sh “docker run –it  -d java-web-app”
+     }
+
+     }
+    }
+
+
+
+
+
+
